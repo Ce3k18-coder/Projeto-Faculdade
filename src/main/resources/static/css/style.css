@@ -40,3 +40,29 @@ body {
 .cabecalho-login img {
     margin: 0 auto;
 }
+
+.campo-login {
+    position: relative;
+}
+
+.campo-login input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.icone-campo {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #999999;
+    stroke-width: 2;
+    pointer-events: none;
+}
