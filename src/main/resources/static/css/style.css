@@ -3,7 +3,7 @@ body {
     background-size: cover;
     background-position: center;
 
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
 
     display: flex;
     justify-content: center;
@@ -49,7 +49,9 @@ body {
     box-sizing: border-box;
     width: 100%;
     padding: 12px 14px 12px 42px;
-    border: 1px solid #dddddd;
+    border: 1px solid #b8c8d8;
+    color: #17324d;
+    transition: border-color 0.2s, box-shadow 0.2s;
     border-radius: 8px;
     font-size: 16px;
 }
@@ -96,4 +98,61 @@ body {
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+}
+
+.caixa-login h1 {
+    color: #17324d;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.caixa-login h2 {
+    color: #52677c;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.campo-login input:focus {
+    border-color: #176baf;
+    outline: 2px solid #176baf;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgb(23 107 175 / 0.12);
+}
+
+.caixa-login button[type="submit"] {
+    width: 100%;
+    padding: 13px 20px;
+    background-color: #176baf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.caixa-login button[type="submit"]:hover {
+    background-color: #12558c;
+}
+
+.caixa-login button[type="submit"]:focus-visible {
+    outline: 3px solid #17324d;
+    outline-offset: 3px;
+}
+
+.esqueci-senha {
+    display: block;
+    margin: 0 auto 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #176baf;
+    font-family: inherit;
+    font-size: 14px;
+    text-decoration: underline;
 }
