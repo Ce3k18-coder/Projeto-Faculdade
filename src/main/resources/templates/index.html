@@ -45,6 +45,20 @@
             <input type="password" id="senha"
                    placeholder="Digite sua senha"
                    aria-label="Senha">
+
+            <button type="button" id="alternar-senha"
+                    class="botao-senha"
+                    aria-label="Mostrar senha"
+                    aria-controls="senha"
+                    aria-pressed="false">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path id="risco-olho" d="M3 3l18 18"></path>
+                </svg>
+            </button>
+
         </div>
 
         <br><br>
@@ -54,6 +68,27 @@
     </form>
 
 </div>
+
+<script>
+    const campoSenha = document.getElementById("senha");
+    const botaoSenha = document.getElementById("alternar-senha");
+    const riscoOlho = document.getElementById("risco-olho");
+
+    botaoSenha.addEventListener("click", function () {
+        const mostrarSenha = campoSenha.type === "password";
+
+        campoSenha.type = mostrarSenha ? "text" : "password";
+
+        riscoOlho.style.display = mostrarSenha ? "none" : "";
+
+        botaoSenha.setAttribute(
+            "aria-label",
+            mostrarSenha ? "Ocultar senha" : "Mostrar senha"
+        );
+
+        botaoSenha.setAttribute("aria-pressed", String(mostrarSenha));
+    });
+</script>
 
 </body>
 

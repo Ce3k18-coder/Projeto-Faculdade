@@ -66,3 +66,34 @@ body {
     stroke-width: 2;
     pointer-events: none;
 }
+
+#senha {
+    padding-right: 48px;
+}
+
+.botao-senha {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #777777;
+    cursor: pointer;
+}
+
+.botao-senha svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
