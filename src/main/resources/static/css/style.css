@@ -29,3 +29,14 @@ body {
     height: auto;
 }
 
+.cabecalho-login {
+    background-color: white;
+    margin: -30px -30px 25px;
+    padding: 25px 30px;
+    border-bottom: 1px solid #dddddd;
+    border-radius: 8px 8px 0 0;
+}
+
+.cabecalho-login img {
+    margin: 0 auto;
+}
