@@ -1,75 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Chamados TI - Uninove</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Sistema de Chamados TI - Uninove</title>
+    <!-- thymeleaf resolve dinamicamente a pasta static -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
 </head>
-
 <body>
 
-
 <div class="caixa-login">
-
     <div class="cabecalho-login">
-        <img src="/images/Logo-uninove.png" alt="Logo UNINOVE">
+        <!-- thymeleaf resolve dinamicamente a imagem -->
+        <img th:src="@{/images/Logo-uninove.png}" src="../static/images/Logo-uninove.png" alt="Logo UNINOVE">
     </div>
 
-    <h1>Chamados TI - Uninove</h1>
+    <h1>Sistema de Chamados TI - Uninove</h1>
     <h2>Login</h2>
 
     <form>
-
         <div class="campo-login">
-            <svg class="icone-campo" viewBox="0 0 24 24"
-                 aria-hidden="true">
+            <svg class="icone-campo" viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="3" y="5" width="18" height="14" rx="2"></rect>
                 <path d="M3 6l9 7 9-7"></path>
             </svg>
-
-            <input type="email" id="email"
-                   placeholder="Digite seu E-mail"
-                   aria-label="E-mail">
+            <input type="email" id="email" placeholder="Digite seu E-mail" aria-label="E-mail">
         </div>
 
         <br><br>
 
         <div class="campo-login">
-            <svg class="icone-campo" viewBox="0 0 24 24"
-                 aria-hidden="true">
+            <svg class="icone-campo" viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="5" y="10" width="14" height="11" rx="2"></rect>
                 <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
             </svg>
 
-            <input type="password" id="senha"
-                   placeholder="Digite sua senha"
-                   aria-label="Senha">
+            <input type="password" id="senha" placeholder="Digite sua senha" aria-label="Senha">
 
-            <button type="button" id="alternar-senha"
-                    class="botao-senha"
-                    aria-label="Mostrar senha"
-                    aria-controls="senha"
-                    aria-pressed="false">
-
+            <button type="button" id="alternar-senha" class="botao-senha" aria-label="Mostrar senha" aria-controls="senha" aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
                     <path id="risco-olho" d="M3 3l18 18"></path>
                 </svg>
             </button>
-
         </div>
 
         <br><br>
 
-        <button type="button" class="esqueci-senha" disabled>
-            Esqueci minha senha
-        </button>
+        <button type="button" class="esqueci-senha" disabled>Esqueci minha senha</button>
         <button type="submit">Entrar</button>
-
     </form>
-
 </div>
 
 <script>
@@ -79,20 +59,12 @@
 
     botaoSenha.addEventListener("click", function () {
         const mostrarSenha = campoSenha.type === "password";
-
         campoSenha.type = mostrarSenha ? "text" : "password";
-
         riscoOlho.style.display = mostrarSenha ? "none" : "";
-
-        botaoSenha.setAttribute(
-            "aria-label",
-            mostrarSenha ? "Ocultar senha" : "Mostrar senha"
-        );
-
+        botaoSenha.setAttribute("aria-label", mostrarSenha ? "Ocultar senha" : "Mostrar senha");
         botaoSenha.setAttribute("aria-pressed", String(mostrarSenha));
     });
 </script>
 
 </body>
-
 </html>
