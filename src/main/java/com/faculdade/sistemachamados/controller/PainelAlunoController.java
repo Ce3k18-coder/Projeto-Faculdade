@@ -54,4 +54,18 @@ public class PainelAlunoController {
 
         return "painel-aluno";
     }
+
+    @GetMapping("/aluno/novo-chamado")
+    public String novoChamado(HttpSession session) {
+
+        Long usuarioId = (Long) session.getAttribute("usuarioId");
+        String usuarioPerfil = (String) session.getAttribute("usuarioPerfil");
+
+        if (usuarioId == null || !"ALUNO".equals(usuarioPerfil)) {
+            return "redirect:/";
+        }
+
+        return "novo-chamado";
+    }
+
 }

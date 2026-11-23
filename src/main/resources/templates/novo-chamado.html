@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Chamado - Uninove</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="pagina-sistema">
+
+<header class="topo-sistema">
+    <div class="marca-sistema">
+        <img th:src="@{/images/Logo-uninove.png}" alt="UNINOVE">
+        <span>Sistema de Chamados TI</span>
+    </div>
+    <a th:href="@{/aluno}">Voltar aos chamados</a>
+</header>
+
+<main class="conteudo-sistema">
+    <section class="cabecalho-pagina">
+        <h1>Abrir Novo Chamado</h1>
+        <p>Preencha as informações abaixo para solicitar suporte técnico.</p>
+    </section>
+
+    <section class="cartao-formulario">
+        <form th:action="@{/aluno/chamados}" method="post">
+
+            <div class="grupo-formulario">
+                <label for="tipo">Tipo de chamado</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="Computador">Computador</option>
+                    <option value="Impressora">Impressora</option>
+                    <option value="Internet/Rede">Internet / Rede</option>
+                    <option value="Sistema">Sistema</option>
+                    <option value="Outros">Outros</option>
+                </select>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="equipamento">Equipamento</label>
+                <input type="text" id="equipamento" name="equipamento"
+                       placeholder="Ex.: Computador da sala 205" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="setor">Unidade / Local</label>
+                <input type="text" id="setor" name="setor"
+                       placeholder="Ex.: Unidade Vergueiro - Sala 205" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="pessoaContato">Pessoa de contato</label>
+                <input type="text" id="pessoaContato" name="pessoaContato"
+                       placeholder="Nome de quem receberá o técnico" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="telefone">Telefone para contato</label>
+                <input type="tel" id="telefone" name="telefone"
+                       placeholder="Ex.: (11) 99999-9999" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="descricao">Descrição do problema</label>
+                <textarea id="descricao" name="descricao" rows="5"
+                          placeholder="Descreva o problema encontrado..."
+                          required></textarea>
+            </div>
+
+            <div class="acoes-formulario">
+                <a th:href="@{/aluno}" class="botao-cancelar">Cancelar</a>
+                <button type="submit" class="botao-salvar">
+                    Abrir Chamado
+                </button>
+            </div>
+
+        </form>
+    </section>
+</main>
+
+</body>
+</html>
