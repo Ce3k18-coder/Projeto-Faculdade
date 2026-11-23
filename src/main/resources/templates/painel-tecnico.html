@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Técnico - UNINOVE</title>
+    <link rel="stylesheet" th:href="@{/css/painel.css}">
+</head>
+<body>
+
+<header class="cabecalho">
+    <div class="marca">
+        <img th:src="@{/images/Logo-uninove.png}" alt="UNINOVE">
+        <span>Sistema de Chamados TI</span>
+    </div>
+
+    <div class="usuario">
+        <span th:text="${nomeTecnico}">Técnico</span>
+        <a th:href="@{/logout}">Sair</a>
+    </div>
+</header>
+
+<main class="conteudo">
+
+    <div class="titulo-pagina">
+        <div>
+            <h1>Painel do Técnico</h1>
+            <p>Gerencie e acompanhe os chamados de suporte dos alunos.</p>
+        </div>
+    </div>
+
+    <section class="resumo">
+        <div class="cartao">
+            <span>Total de chamados</span>
+            <strong th:text="${totalChamados}">0</strong>
+        </div>
+
+        <div class="cartao">
+            <span>Abertos</span>
+            <strong th:text="${chamadosAbertos}">0</strong>
+        </div>
+
+        <div class="cartao">
+            <span>Em andamento</span>
+            <strong th:text="${chamadosAndamento}">0</strong>
+        </div>
+
+        <div class="cartao">
+            <span>Finalizados</span>
+            <strong th:text="${chamadosFinalizados}">0</strong>
+        </div>
+    </section>
+
+    <section class="historico">
+        <h2>Chamados recebidos</h2>
+
+        <div class="tabela-responsiva">
+            <table>
+                <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Data</th>
+                    <th>Aluno</th>
+                    <th>Equipamento</th>
+                    <th>Problema</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="chamado : ${chamados}">
+                    <td th:text="${chamado.id}"></td>
+                    <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${chamado.aluno.nome}"></td>
+                    <td th:text="${chamado.equipamento}"></td>
+                    <td th:text="${chamado.tipoProblema}"></td>
+                    <td th:text="${chamado.status}"></td>
+                    <td>
+                        <span>Visualizar</span>
+                    </td>
+                </tr>
+
+                <tr th:if="${chamados == null or #lists.isEmpty(chamados)}">
+                    <td colspan="7" class="sem-chamados">
+                        Nenhum chamado cadastrado até o momento.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>
