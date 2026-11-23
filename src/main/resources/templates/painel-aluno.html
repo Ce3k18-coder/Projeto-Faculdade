@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Chamados - UNINOVE</title>
+  <link rel="stylesheet" th:href="@{/css/painel.css}">
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="marca">
+    <img th:src="@{/images/Logo-uninove.png}" alt="UNINOVE">
+    <span>Sistema de Chamados TI</span>
+  </div>
+
+  <div class="usuario">
+    <span th:text="${nomeAluno}">Aluno</span>
+    <a th:href="@{/logout}">Sair</a>
+  </div>
+</header>
+
+<main class="conteudo">
+
+  <div class="titulo-pagina">
+    <div>
+      <h1>Meus Chamados</h1>
+      <p>Consulte e acompanhe suas solicitações de suporte.</p>
+    </div>
+
+    <a th:href="@{/chamados/novo}" class="botao-novo">
+      + Novo Chamado
+    </a>
+  </div>
+
+  <section class="resumo">
+    <div class="cartao">
+      <span>Total de chamados</span>
+      <strong th:text="${totalChamados}">0</strong>
+    </div>
+
+    <div class="cartao">
+      <span>Abertos</span>
+      <strong th:text="${chamadosAbertos}">0</strong>
+    </div>
+
+    <div class="cartao">
+      <span>Em andamento</span>
+      <strong th:text="${chamadosAndamento}">0</strong>
+    </div>
+
+    <div class="cartao">
+      <span>Finalizados</span>
+      <strong th:text="${chamadosFinalizados}">0</strong>
+    </div>
+  </section>
+
+  <section class="historico">
+    <h2>Histórico de chamados</h2>
+
+    <div class="tabela-responsiva">
+      <table>
+        <thead>
+        <tr>
+          <th>Número</th>
+          <th>Data</th>
+          <th>Equipamento</th>
+          <th>Problema</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="chamado : ${chamados}">
+          <td th:text="${chamado.id}"></td>
+          <td th:text="${chamado.dataAbertura}"></td>
+          <td th:text="${chamado.equipamento}"></td>
+          <td th:text="${chamado.tipoProblema}"></td>
+          <td th:text="${chamado.status}"></td>
+        </tr>
+
+        <tr th:if="${chamados == null or #lists.isEmpty(chamados)}">
+          <td colspan="5" class="sem-chamados">
+            Você ainda não possui chamados cadastrados.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
