@@ -74,7 +74,7 @@
         <tbody>
         <tr th:each="chamado : ${chamados}">
           <td th:text="${chamado.id}"></td>
-          <td th:text="${chamado.dataAbertura}"></td>
+          <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
           <td th:text="${chamado.equipamento}"></td>
           <td th:text="${chamado.tipoProblema}"></td>
           <td th:text="${chamado.status}"></td>

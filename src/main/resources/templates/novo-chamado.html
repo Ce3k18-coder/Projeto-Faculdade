@@ -27,8 +27,8 @@
         <form th:action="@{/aluno/chamados}" method="post">
 
             <div class="grupo-formulario">
-                <label for="tipo">Tipo de chamado</label>
-                <select id="tipo" name="tipo" required>
+                <label for="tipoProblema">Tipo de chamado</label>
+                <select id="tipoProblema" name="tipoProblema" required>
                     <option value="">Selecione o tipo</option>
                     <option value="Computador">Computador</option>
                     <option value="Impressora">Impressora</option>
@@ -44,11 +44,19 @@
                        placeholder="Ex.: Computador da sala 205" required>
             </div>
 
+
             <div class="grupo-formulario">
-                <label for="setor">Unidade / Local</label>
-                <input type="text" id="setor" name="setor"
-                       placeholder="Ex.: Unidade Vergueiro - Sala 205" required>
+                <label for="unidade">Unidade</label>
+                <input type="text" id="unidade" name="unidade"
+                       placeholder="Ex.: Unidade Vergueiro" required>
             </div>
+
+            <div class="grupo-formulario">
+                <label for="setor">Setor / Local</label>
+                <input type="text" id="setor" name="setor"
+                       placeholder="Ex.: Bloco A - Sala 205" required>
+            </div>
+
 
             <div class="grupo-formulario">
                 <label for="pessoaContato">Pessoa de contato</label>
