@@ -2,12 +2,15 @@
 package com.faculdade.sistemachamados.controller;
 
 import com.faculdade.sistemachamados.model.Chamado;
+import com.faculdade.sistemachamados.model.Usuario;
 import com.faculdade.sistemachamados.repository.ChamadoRepository;
+import com.faculdade.sistemachamados.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,9 +18,14 @@ import java.util.List;
 public class PainelTecnicoController {
 
     private final ChamadoRepository chamadoRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public PainelTecnicoController(ChamadoRepository chamadoRepository) {
+    public PainelTecnicoController(
+            ChamadoRepository chamadoRepository,
+            UsuarioRepository usuarioRepository) {
+
         this.chamadoRepository = chamadoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/tecnico")
@@ -80,5 +88,44 @@ public class PainelTecnicoController {
         model.addAttribute("chamado", chamado);
 
         return "detalhes-chamado";
+    }
+
+    @PostMapping("/tecnico/chamados/{id}/assumir")
+    public String assumirChamado(
+            @PathVariable("id") Long id,
+            HttpSession session) {
+
+        Long usuarioId = (Long) session.getAttribute("usuarioId");
+        String usuarioPerfil = (String) session.getAttribute("usuarioPerfil");
+
+        if (usuarioId == null || !"TECNICO".equals(usuarioPerfil)) {
+            return "redirect:/";
+        }
+
+        Usuario tecnico = usuarioRepository.findById(usuarioId)
+                .orElse(null);
+
+        if (tecnico == null || !"TECNICO".equals(tecnico.getPerfil())) {
+            session.invalidate();
+            return "redirect:/";
+        }
+
+        Chamado chamado = chamadoRepository.findById(id)
+                .orElse(null);
+
+        if (chamado == null) {
+            return "redirect:/tecnico";
+        }
+
+        if ("ABERTO".equals(chamado.getStatus())
+                && chamado.getTecnico() == null) {
+
+            chamado.setTecnico(tecnico);
+            chamado.setStatus("EM_ANDAMENTO");
+
+            chamadoRepository.save(chamado);
+        }
+
+        return "redirect:/tecnico/chamados/" + id;
     }
 }

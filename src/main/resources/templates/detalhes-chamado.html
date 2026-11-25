@@ -102,6 +102,16 @@
     <section class="historico">
         <h2>Atendimento</h2>
 
+        <form th:if="${chamado.status == 'ABERTO'}"
+              th:action="@{/tecnico/chamados/{id}/assumir(id=${chamado.id})}"
+              method="post">
+
+            <button type="submit" class="botao-novo">
+                Assumir chamado
+            </button>
+
+        </form>
+
         <p>
             <strong>Técnico responsável:</strong>
             <span th:text="${chamado.tecnico != null ? chamado.tecnico.nome : 'Aguardando atendimento'}"></span>
