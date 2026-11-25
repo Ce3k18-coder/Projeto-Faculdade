@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Chamado - UNINOVE</title>
+    <link rel="stylesheet" th:href="@{/css/painel.css}">
+</head>
+<body>
+
+<header class="cabecalho">
+    <div class="marca">
+        <img th:src="@{/images/Logo-uninove.png}" alt="UNINOVE">
+        <span>Sistema de Chamados TI</span>
+    </div>
+
+    <div class="usuario">
+        <span th:text="${nomeTecnico}">Técnico</span>
+        <a th:href="@{/logout}">Sair</a>
+    </div>
+</header>
+
+<main class="conteudo">
+
+    <div class="titulo-pagina">
+        <div>
+            <h1 th:text="|Detalhes do chamado #${chamado.id}|">
+                Detalhes do chamado
+            </h1>
+
+            <p>Consulte as informações e acompanhe o atendimento.</p>
+        </div>
+
+        <a th:href="@{/tecnico}" class="botao-novo">
+            Voltar ao painel
+        </a>
+    </div>
+
+    <section class="historico">
+        <h2>Informações do chamado</h2>
+
+        <p>
+            <strong>Data de abertura:</strong>
+            <span th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></span>
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span th:text="${chamado.status}"></span>
+        </p>
+    </section>
+
+    <section class="historico">
+        <h2>Informações do solicitante</h2>
+
+        <p>
+            <strong>Aluno:</strong>
+            <span th:text="${chamado.aluno.nome}"></span>
+        </p>
+
+        <p>
+            <strong>Unidade:</strong>
+            <span th:text="${chamado.unidade}"></span>
+        </p>
+
+        <p>
+            <strong>Setor:</strong>
+            <span th:text="${chamado.setor}"></span>
+        </p>
+
+        <p>
+            <strong>Pessoa de contato:</strong>
+            <span th:text="${chamado.pessoaContato}"></span>
+        </p>
+
+        <p>
+            <strong>Telefone:</strong>
+            <span th:text="${chamado.telefone}"></span>
+        </p>
+    </section>
+
+    <section class="historico">
+        <h2>Informações do problema</h2>
+
+        <p>
+            <strong>Equipamento:</strong>
+            <span th:text="${chamado.equipamento}"></span>
+        </p>
+
+        <p>
+            <strong>Tipo de problema:</strong>
+            <span th:text="${chamado.tipoProblema}"></span>
+        </p>
+
+        <p><strong>Descrição do problema:</strong></p>
+
+        <p th:text="${chamado.descricao}"
+           style="white-space: pre-wrap;"></p>
+    </section>
+
+    <section class="historico">
+        <h2>Atendimento</h2>
+
+        <p>
+            <strong>Técnico responsável:</strong>
+            <span th:text="${chamado.tecnico != null ? chamado.tecnico.nome : 'Aguardando atendimento'}"></span>
+        </p>
+
+        <p><strong>Solução aplicada:</strong></p>
+
+        <p th:text="${chamado.solucao != null ? chamado.solucao : 'Nenhuma solução registrada até o momento.'}"
+           style="white-space: pre-wrap;"></p>
+    </section>
+
+</main>
+
+</body>
+</html>

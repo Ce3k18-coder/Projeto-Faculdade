@@ -78,7 +78,9 @@
                     <td th:text="${chamado.tipoProblema}"></td>
                     <td th:text="${chamado.status}"></td>
                     <td>
-                        <span>Visualizar</span>
+                        <a th:href="@{/tecnico/chamados/{id}(id=${chamado.id})}">
+                            Visualizar
+                        </a>
                     </td>
                 </tr>
 
