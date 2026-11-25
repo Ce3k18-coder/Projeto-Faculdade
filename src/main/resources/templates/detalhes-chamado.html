@@ -176,10 +176,64 @@
             <span th:text="${chamado.tecnico != null ? chamado.tecnico.nome : 'Aguardando atendimento'}"></span>
         </p>
 
-        <p><strong>Solução aplicada:</strong></p>
 
-        <p th:text="${chamado.solucao != null ? chamado.solucao : 'Nenhuma solução registrada até o momento.'}"
-           style="white-space: pre-wrap;"></p>
+        <div style="margin-top: 25px;">
+
+            <h3>Conclusão do atendimento</h3>
+
+            <form th:if="${chamado.status == 'EM_ANDAMENTO'
+                  and chamado.tecnico != null
+                  and chamado.tecnico.id == session.usuarioId}"
+                  th:action="@{/tecnico/chamados/{id}/concluir(id=${chamado.id})}"
+                  method="post"
+                  onsubmit="return confirm('Deseja realmente concluir este chamado?');">
+
+                <label for="solucao">
+                    <strong>Solução aplicada:</strong>
+                </label>
+
+                <textarea id="solucao"
+                          name="solucao"
+                          rows="5"
+                          maxlength="2000"
+                          placeholder="Descreva a solução definitiva do problema..."
+                          required
+                          style="width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box;"></textarea>
+
+                <button type="submit"
+                        class="botao-novo"
+                        style="background-color: #218838;">
+                    Concluir chamado
+                </button>
+
+            </form>
+
+            <div th:if="${chamado.status == 'FINALIZADO'}">
+
+                <p style="color: #218838;">
+                    <strong>Chamado finalizado</strong>
+                </p>
+
+                <p>
+                    <strong>Data de conclusão:</strong>
+                    <span th:text="${chamado.dataConclusao != null
+                ? #temporals.format(chamado.dataConclusao, 'dd/MM/yyyy HH:mm')
+                : 'Não registrada'}"></span>
+                </p>
+
+                <p><strong>Solução aplicada:</strong></p>
+
+                <p th:text="${chamado.solucao}"
+                   style="white-space: pre-wrap;"></p>
+
+            </div>
+
+            <p th:if="${chamado.status != 'FINALIZADO'}">
+                Nenhuma solução definitiva registrada até o momento.
+            </p>
+
+        </div>
+
     </section>
 
 </main>

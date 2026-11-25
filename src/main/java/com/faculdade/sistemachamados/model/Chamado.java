@@ -28,6 +28,7 @@ public class Chamado {
 
     private String status;
     private LocalDateTime dataAbertura;
+    private LocalDateTime dataConclusao;
 
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
@@ -141,5 +142,13 @@ public class Chamado {
 
     public void setSolucao(String solucao) {
         this.solucao = solucao;
+    }
+
+    public LocalDateTime getDataConclusao() {
+        return dataConclusao;
+    }
+
+    public void setDataConclusao(LocalDateTime dataConclusao) {
+        this.dataConclusao = dataConclusao;
     }
 }

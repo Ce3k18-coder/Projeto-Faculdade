@@ -206,4 +206,68 @@ public class PainelTecnicoController {
 
         return "redirect:/tecnico/chamados/" + id;
     }
+
+
+    @PostMapping("/tecnico/chamados/{id}/concluir")
+    public String concluirChamado(
+            @PathVariable("id") Long id,
+            @RequestParam("solucao") String solucao,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        Long usuarioId = (Long) session.getAttribute("usuarioId");
+        String usuarioPerfil = (String) session.getAttribute("usuarioPerfil");
+
+        if (usuarioId == null || !"TECNICO".equals(usuarioPerfil)) {
+            return "redirect:/";
+        }
+
+        Usuario tecnico = usuarioRepository.findById(usuarioId)
+                .orElse(null);
+
+        if (tecnico == null || !"TECNICO".equals(tecnico.getPerfil())) {
+            session.invalidate();
+            return "redirect:/";
+        }
+
+        Chamado chamado = chamadoRepository.findById(id)
+                .orElse(null);
+
+        if (chamado == null) {
+            return "redirect:/tecnico";
+        }
+
+        if (!"EM_ANDAMENTO".equals(chamado.getStatus())
+                || chamado.getTecnico() == null
+                || !usuarioId.equals(chamado.getTecnico().getId())) {
+
+            redirectAttributes.addFlashAttribute(
+                    "erro", "Você não pode concluir este chamado."
+            );
+
+            return "redirect:/tecnico/chamados/" + id;
+        }
+
+        if (solucao.isBlank() || solucao.length() > 2000) {
+
+            redirectAttributes.addFlashAttribute(
+                    "erro", "Informe uma solução de até 2000 caracteres."
+            );
+
+            return "redirect:/tecnico/chamados/" + id;
+        }
+
+        chamado.setSolucao(solucao.trim());
+        chamado.setStatus("FINALIZADO");
+        chamado.setDataConclusao(LocalDateTime.now());
+
+        chamadoRepository.save(chamado);
+
+        redirectAttributes.addFlashAttribute(
+                "sucesso", "Chamado finalizado com sucesso."
+        );
+
+        return "redirect:/tecnico/chamados/" + id;
+    }
+
 }
