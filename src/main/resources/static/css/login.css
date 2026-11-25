@@ -1,0 +1,893 @@
+/* ========================================
+   CONFIGURACOES GERAIS
+======================================== */
+
+:root {
+    --texto-principal: #ffffff;
+    --texto-secundario: #cbdcf5;
+    --azul-claro: #83c9ff;
+    --borda-vidro: rgba(255, 255, 255, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--texto-principal);
+    background: #03132e;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+/* ========================================
+   FUNDO DA PAGINA
+======================================== */
+
+.pagina-login {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+            radial-gradient(
+                    ellipse at 85% 85%,
+                    rgba(0, 115, 255, 0.55),
+                    transparent 45%
+            ),
+            radial-gradient(
+                    ellipse at 10% 10%,
+                    rgba(41, 78, 180, 0.45),
+                    transparent 50%
+            ),
+            linear-gradient(
+                    135deg,
+                    #020b20 0%,
+                    #09234c 45%,
+                    #073c87 100%
+            );
+}
+
+/* Curvas luminosas do fundo */
+
+.pagina-login::before,
+.pagina-login::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.pagina-login::before {
+    width: 150%;
+    height: 65%;
+    left: -35%;
+    bottom: -28%;
+    transform: rotate(-18deg);
+
+    border-top: 3px solid rgba(90, 178, 255, 0.75);
+
+    box-shadow:
+            0 -8px 30px rgba(0, 123, 255, 0.65),
+            0 -35px 90px rgba(32, 104, 255, 0.25);
+}
+
+.pagina-login::after {
+    width: 130%;
+    height: 65%;
+    right: -40%;
+    top: -35%;
+    transform: rotate(-20deg);
+
+    border-bottom: 2px solid rgba(100, 175, 255, 0.45);
+
+    box-shadow:
+            0 10px 40px rgba(45, 125, 255, 0.35);
+}
+
+/* ========================================
+   CAIXA DE LOGIN - EFEITO DE VIDRO
+======================================== */
+
+.caixa-login {
+    width: 100%;
+    max-width: 470px;
+    padding: 32px 38px 28px;
+
+    background: linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.20),
+            rgba(255, 255, 255, 0.07)
+    );
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid var(--borda-vidro);
+    border-radius: 26px;
+
+    box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.35),
+            0 0 35px rgba(65, 150, 255, 0.12),
+            inset 0 1px 1px rgba(255, 255, 255, 0.35);
+
+    text-align: center;
+
+    animation: aparecer 0.65s ease-out;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   LOGO E CABECALHO
+======================================== */
+
+.cabecalho-login {
+    margin-bottom: 20px;
+}
+
+.cabecalho-login img {
+    width: 185px;
+    max-width: 100%;
+    height: auto;
+
+    filter: drop-shadow(
+            0 2px 8px rgba(255, 255, 255, 0.18)
+    );
+}
+
+.icone-suporte {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(145, 205, 255, 0.45);
+
+    background: rgba(100, 175, 255, 0.10);
+
+    box-shadow:
+            0 0 20px rgba(64, 150, 255, 0.20);
+
+    color: #b8e0ff;
+}
+
+.icone-suporte svg {
+    width: 32px;
+    height: 32px;
+}
+
+.caixa-login h1 {
+    font-size: 27px;
+    font-weight: 650;
+    letter-spacing: -0.7px;
+    margin: 0 0 8px;
+}
+
+.subtitulo {
+    font-size: 14px;
+    color: var(--texto-secundario);
+    margin: 0 0 30px;
+}
+
+/* ========================================
+   CAMPOS DE LOGIN
+======================================== */
+
+.grupo-campo {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.grupo-campo > label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.campo-login {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 53px;
+    padding: 0 15px;
+
+    background: rgba(8, 29, 65, 0.35);
+
+    border: 1px solid rgba(185, 220, 255, 0.30);
+    border-radius: 10px;
+
+    transition:
+            border-color 0.2s,
+            box-shadow 0.2s,
+            background 0.2s;
+}
+
+.campo-login:focus-within {
+    border-color: #83c9ff;
+
+    background: rgba(8, 29, 65, 0.50);
+
+    box-shadow:
+            0 0 0 3px rgba(80, 160, 255, 0.12);
+}
+
+.icone-campo {
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: #b4d5f5;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.campo-login input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 51px;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: white;
+    font-size: 14px;
+}
+
+.campo-login input::placeholder {
+    color: #a8bedb;
+}
+
+.campo-login input:-webkit-autofill {
+    -webkit-text-fill-color: white;
+
+    transition:
+            background-color 9999s ease-in-out 0s;
+}
+
+/* Mostrar e ocultar senha */
+
+.botao-senha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+    border: none;
+    background: transparent;
+    color: #b4d5f5;
+    cursor: pointer;
+}
+
+.botao-senha svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+}
+
+.botao-senha:hover {
+    color: white;
+}
+
+/* ========================================
+   OPCOES DO LOGIN
+======================================== */
+
+.opcoes-login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin: 4px 0 25px;
+    font-size: 13px;
+}
+
+.lembrar-me {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    color: var(--texto-secundario);
+}
+
+.lembrar-me input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+
+    accent-color: #278aff;
+    cursor: pointer;
+}
+
+.esqueci-senha {
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    font-size: 13px;
+    color: #9bd5ff;
+    cursor: pointer;
+
+    transition: color 0.2s;
+}
+
+.esqueci-senha:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* ========================================
+   BOTAO ENTRAR
+======================================== */
+
+.botao-entrar,
+.botao-entendi {
+    width: 100%;
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: 1px solid rgba(155, 215, 255, 0.40);
+    border-radius: 10px;
+
+    background: linear-gradient(
+            100deg,
+            #0863d7,
+            #248dff
+    );
+
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+            0 5px 22px rgba(0, 100, 255, 0.30),
+            inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    transition:
+            transform 0.2s,
+            box-shadow 0.2s,
+            filter 0.2s;
+}
+
+.botao-entrar svg {
+    width: 19px;
+    height: 19px;
+}
+
+.botao-entrar:hover,
+.botao-entendi:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+
+    box-shadow:
+            0 8px 28px rgba(0, 125, 255, 0.45);
+}
+
+.botao-entrar:active,
+.botao-entendi:active {
+    transform: translateY(0);
+}
+
+button:focus-visible,
+.lembrar-me input:focus-visible {
+    outline: 2px solid #b8e0ff;
+    outline-offset: 4px;
+}
+
+/* ========================================
+   MENSAGEM DE ERRO
+======================================== */
+
+.mensagem-erro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        padding: 14px 16px;
+        margin: 0 0 20px;
+
+        background: rgba(255, 235, 235, 0.95);
+        border: 1px solid #e7a0a0;
+        border-radius: 12px;
+
+        color: #991b1b;
+        font-size: 14px;
+        font-weight: 600;
+
+        box-shadow: 0 3px 12px rgba(180, 30, 30, 0.08);
+
+        animation: aparecer 0.3s ease-out;
+    }
+
+    .mensagem-erro::before {
+        content: "!";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+
+        border: 2px solid currentColor;
+        border-radius: 50%;
+
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+
+
+.rodape-login {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-top: 28px;
+    padding-top: 22px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.item-rodape {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
+
+.item-rodape svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+    stroke: #9acfff;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.item-rodape + .item-rodape {
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Rodape da pagina */
+
+.rodape-pagina {
+    margin-top: 24px;
+
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.8;
+
+    color: #b0c8e9;
+}
+
+/* ========================================
+   MODAL DE RECUPERACAO DE SENHA
+======================================== */
+
+.modal-recuperacao {
+    width: calc(100% - 40px);
+    max-width: 420px;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+
+    padding: 32px;
+    margin: auto;
+
+    color: white;
+
+    background: linear-gradient(
+            145deg,
+            rgba(45, 81, 130, 0.95),
+            rgba(10, 36, 75, 0.95)
+    );
+
+    border: 1px solid rgba(180, 220, 255, 0.40);
+    border-radius: 24px;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow:
+            0 25px 80px rgba(0, 0, 0, 0.50);
+
+    text-align: center;
+}
+
+.modal-recuperacao[open] {
+    animation: aparecer 0.25s ease-out;
+}
+
+.modal-recuperacao::backdrop {
+    background: rgba(0, 8, 25, 0.65);
+    backdrop-filter: blur(7px);
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+
+    background: transparent;
+    border: none;
+    color: #cbdcf5;
+
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.fechar-modal:hover {
+    color: white;
+}
+
+.icone-recuperacao {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(120, 190, 255, 0.12);
+    border: 1px solid rgba(120, 190, 255, 0.35);
+    border-radius: 50%;
+
+    color: #b8e0ff;
+}
+
+.icone-recuperacao svg {
+    width: 32px;
+    height: 32px;
+}
+
+.modal-recuperacao h2 {
+    font-size: 23px;
+    margin: 0 0 12px;
+}
+
+.modal-recuperacao > p {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.contatos-administrador {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin: 24px 0;
+}
+
+.contato {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 14px;
+
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.contato svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: #9acfff;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.contato span {
+    display: block;
+    margin-bottom: 4px;
+
+    color: var(--texto-secundario);
+    font-size: 11px;
+}
+
+.contato strong {
+    font-size: 14px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 500px) {
+
+    .pagina-login {
+        padding: 25px 15px;
+    }
+
+    .caixa-login {
+        padding: 28px 23px 24px;
+        border-radius: 22px;
+    }
+
+    .caixa-login h1 {
+        font-size: 23px;
+    }
+
+    .cabecalho-login img {
+        width: 160px;
+    }
+
+    .subtitulo {
+        font-size: 12px;
+    }
+
+    .opcoes-login {
+        font-size: 12px;
+    }
+
+    .esqueci-senha {
+        font-size: 12px;
+    }
+
+    .item-rodape {
+        font-size: 10px;
+    }
+
+    .modal-recuperacao {
+        padding: 25px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Ajustes visuais conforme a referência */
+
+.caixa-login {
+    max-width: 600px;
+    padding: 28px 42px 32px;
+    border-radius: 36px;
+
+    background:
+            radial-gradient(
+                    ellipse at 50% 35%,
+                    rgba(240, 248, 255, 0.95),
+                    transparent 75%
+            ),
+            linear-gradient(
+                    145deg,
+                    rgba(195, 220, 255, 0.85),
+                    rgba(90, 140, 230, 0.65)
+            );
+
+    border: 2px solid rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+            inset 0 0 18px rgba(255, 255, 255, 0.85),
+            0 0 20px rgba(0, 195, 255, 0.5),
+            0 25px 65px rgba(0, 0, 70, 0.4);
+}
+
+.cabecalho-login img {
+    width: 230px;
+}
+
+.cabecalho-login {
+    margin-bottom: 15px;
+}
+
+.cabecalho-login::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 1px;
+    margin: 16px auto 0;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.icone-suporte {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    color: #0039d5;
+    margin-bottom: 8px;
+}
+
+.icone-suporte svg {
+    width: 54px;
+    height: 54px;
+}
+
+.caixa-login h1 {
+    font-size: 32px;
+    font-weight: 750;
+    color: #070b45;
+}
+
+.subtitulo {
+    color: #394968;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.grupo-campo > label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.campo-login {
+    min-height: 60px;
+    background: rgba(245, 249, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+
+    box-shadow:
+            inset 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.campo-login:focus-within {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #168cff;
+}
+
+.campo-login input {
+    color: #172849;
+    font-size: 17px;
+}
+
+.campo-login input::placeholder {
+    color: #465675;
+}
+
+.campo-login input:-webkit-autofill {
+    -webkit-text-fill-color: #172849;
+}
+
+.icone-campo {
+    stroke: #465675;
+    width: 25px;
+    height: 25px;
+}
+
+.botao-senha {
+    color: #465675;
+}
+
+.botao-senha:hover {
+    color: #0039d5;
+}
+
+.lembrar-me {
+    color: #070b45;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.esqueci-senha {
+    color: #002bc9;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.botao-entrar {
+    min-height: 62px;
+    border-radius: 16px;
+    font-size: 22px;
+
+    background: linear-gradient(
+            180deg,
+            #007bff,
+            #0026d9 55%,
+            #000c9b
+    );
+
+    border: 1px solid #40dfff;
+
+    box-shadow:
+            0 -3px 15px rgba(0, 220, 255, 0.5),
+            0 8px 25px rgba(0, 35, 180, 0.25);
+}
+
+.rodape-login {
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.item-rodape {
+    color: white;
+    font-size: 13px;
+}
+
+.item-rodape svg {
+    stroke: white;
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 600px) {
+    .caixa-login {
+        padding: 25px;
+        border-radius: 25px;
+    }
+
+    .caixa-login h1 {
+        font-size: 25px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .lembrar-me,
+    .esqueci-senha {
+        font-size: 13px;
+    }
+}

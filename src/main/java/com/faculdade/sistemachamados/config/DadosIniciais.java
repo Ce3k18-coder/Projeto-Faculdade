@@ -1,4 +1,3 @@
-
 package com.faculdade.sistemachamados.config;
 
 import com.faculdade.sistemachamados.model.Usuario;
@@ -24,26 +23,40 @@ public class DadosIniciais {
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            if (repository.findByEmail("aluno@teste.com").isEmpty()) {
-                Usuario aluno = new Usuario(
-                        "Aluno Teste",
-                        "aluno@teste.com",
+
+            if (repository.findByEmail("vitor.verissimo@outlook.com").isEmpty()) {
+                Usuario vitor = new Usuario(
+                        "Vitor",
+                        "vitor.verissimo@outlook.com",
                         encoder.encode(senhaAluno),
                         "ALUNO"
                 );
 
-                repository.save(aluno);
+                repository.save(vitor);
             }
 
-            if (repository.findByEmail("tecnico@teste.com").isEmpty()) {
-                Usuario tecnico = new Usuario(
-                        "Tecnico Teste",
-                        "tecnico@teste.com",
+
+            if (repository.findByEmail("heloisa.marinho@outlook.com").isEmpty()) {
+                Usuario heloisa = new Usuario(
+                        "Heloísa",
+                        "heloisa.marinho@outlook.com",
+                        encoder.encode(senhaAluno),
+                        "ALUNO"
+                );
+
+                repository.save(heloisa);
+            }
+
+
+            if (repository.findByEmail("marlon.vitor@outlook.com").isEmpty()) {
+                Usuario marlon = new Usuario(
+                        "Marlon",
+                        "marlon.vitor@outlook.com",
                         encoder.encode(senhaTecnico),
                         "TECNICO"
                 );
 
-                repository.save(tecnico);
+                repository.save(marlon);
             }
         };
     }
