@@ -3,6 +3,7 @@ package com.faculdade.sistemachamados.config;
 
 import com.faculdade.sistemachamados.model.Usuario;
 import com.faculdade.sistemachamados.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class DadosIniciais {
+
+    @Value("${app.aluno.senha}")
+    private String senhaAluno;
+
+    @Value("${app.tecnico.senha}")
+    private String senhaTecnico;
 
     @Bean
     public CommandLineRunner cadastrarUsuarios(UsuarioRepository repository) {
@@ -21,7 +28,7 @@ public class DadosIniciais {
                 Usuario aluno = new Usuario(
                         "Aluno Teste",
                         "aluno@teste.com",
-                        encoder.encode("Aluno@123"),
+                        encoder.encode(senhaAluno),
                         "ALUNO"
                 );
 
@@ -32,7 +39,7 @@ public class DadosIniciais {
                 Usuario tecnico = new Usuario(
                         "Tecnico Teste",
                         "tecnico@teste.com",
-                        encoder.encode("Tecnico@123"),
+                        encoder.encode(senhaTecnico),
                         "TECNICO"
                 );
 
