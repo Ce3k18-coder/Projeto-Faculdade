@@ -6,10 +6,10 @@ import com.faculdade.sistemachamados.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Optional;
 
@@ -28,6 +28,7 @@ public class LoginController {
             @RequestParam String email,
             @RequestParam String senha,
             HttpSession session,
+            HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
         Optional<Usuario> usuarioEncontrado =
@@ -44,6 +45,9 @@ public class LoginController {
         }
 
         Usuario usuario = usuarioEncontrado.get();
+
+        session.invalidate();
+        session = request.getSession(true);
 
         session.setAttribute("usuarioId", usuario.getId());
         session.setAttribute("usuarioNome", usuario.getNome());
@@ -65,7 +69,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";

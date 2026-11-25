@@ -17,7 +17,9 @@
 
   <div class="usuario">
     <span th:text="${nomeAluno}">Aluno</span>
-    <a th:href="@{/logout}">Sair</a>
+    <form th:action="@{/logout}" method="post" class="form-logout">
+      <button type="submit" class="botao-logout">Sair</button>
+    </form>
   </div>
 </header>
 

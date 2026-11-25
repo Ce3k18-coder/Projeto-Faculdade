@@ -286,3 +286,23 @@ td {
     color: #12344d;
     text-decoration: underline;
 }
+
+/* Botao de encerramento da sessao */
+
+.form-logout {
+    display: inline-flex;
+    margin: 0;
+}
+
+.botao-logout {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+.botao-logout:hover {
+    text-decoration: underline;
+}
