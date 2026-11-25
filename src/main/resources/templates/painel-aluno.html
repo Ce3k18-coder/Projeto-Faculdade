@@ -77,7 +77,24 @@
           <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
           <td th:text="${chamado.equipamento}"></td>
           <td th:text="${chamado.tipoProblema}"></td>
-          <td th:text="${chamado.status}"></td>
+
+          <td>
+    <span th:if="${chamado.status == 'ABERTO'}"
+          class="status-chamado status-aberto">
+        Aberto
+    </span>
+
+            <span th:if="${chamado.status == 'EM_ANDAMENTO'}"
+                  class="status-chamado status-andamento">
+        Em andamento
+    </span>
+
+            <span th:if="${chamado.status == 'FINALIZADO'}"
+                  class="status-chamado status-finalizado">
+        Finalizado
+    </span>
+          </td>
+
         </tr>
 
         <tr th:if="${chamados == null or #lists.isEmpty(chamados)}">

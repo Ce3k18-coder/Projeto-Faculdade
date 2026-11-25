@@ -53,48 +53,186 @@
     </section>
 
     <section class="historico">
-        <h2>Chamados recebidos</h2>
 
-        <div class="tabela-responsiva">
-            <table>
-                <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Data</th>
-                    <th>Aluno</th>
-                    <th>Equipamento</th>
-                    <th>Problema</th>
-                    <th>Status</th>
-                    <th>Ação</th>
-                </tr>
-                </thead>
+        <div class="abas-chamados">
 
-                <tbody>
-                <tr th:each="chamado : ${chamados}">
-                    <td th:text="${chamado.id}"></td>
-                    <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
-                    <td th:text="${chamado.aluno.nome}"></td>
-                    <td th:text="${chamado.equipamento}"></td>
-                    <td th:text="${chamado.tipoProblema}"></td>
-                    <td th:text="${chamado.status}"></td>
-                    <td>
-                        <a th:href="@{/tecnico/chamados/{id}(id=${chamado.id})}">
-                            Visualizar
-                        </a>
-                    </td>
-                </tr>
+            <button type="button"
+                    class="aba-chamado ativa"
+                    id="aba-fila"
+                    onclick="alternarAba('fila')">
 
-                <tr th:if="${chamados == null or #lists.isEmpty(chamados)}">
-                    <td colspan="7" class="sem-chamados">
-                        Nenhum chamado cadastrado até o momento.
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                Fila de atendimento
+
+                <span class="contador-aba"
+                      th:text="${#lists.size(filaAtendimento)}">0</span>
+
+            </button>
+
+            <button type="button"
+                    class="aba-chamado"
+                    id="aba-historico"
+                    onclick="alternarAba('historico')">
+
+                Histórico de finalizados
+
+                <span class="contador-aba"
+                      th:text="${#lists.size(historicoFinalizados)}">0</span>
+
+            </button>
+
         </div>
+
+        <!-- FILA DE ATENDIMENTO -->
+
+        <div id="conteudo-fila" class="conteudo-aba">
+
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Data</th>
+                        <th>Aluno</th>
+                        <th>Equipamento</th>
+                        <th>Problema</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="chamado : ${filaAtendimento}">
+
+                        <td th:text="${chamado.id}"></td>
+
+                        <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
+
+                        <td th:text="${chamado.aluno.nome}"></td>
+
+                        <td th:text="${chamado.equipamento}"></td>
+
+                        <td th:text="${chamado.tipoProblema}"></td>
+
+                        <td>
+                            <span th:if="${chamado.status == 'ABERTO'}"
+                                  class="status-chamado status-aberto">
+                                Aberto
+                            </span>
+
+                            <span th:if="${chamado.status == 'EM_ANDAMENTO'}"
+                                  class="status-chamado status-andamento">
+                                Em andamento
+                            </span>
+                        </td>
+
+                        <td>
+                            <a class="link-visualizar"
+                               th:href="@{/tecnico/chamados/{id}(id=${chamado.id})}">
+                                Visualizar
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(filaAtendimento)}">
+                        <td colspan="7" class="sem-chamados">
+                            Nenhum chamado pendente de atendimento.
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- HISTÓRICO DE FINALIZADOS -->
+
+        <div id="conteudo-historico"
+             class="conteudo-aba"
+             hidden>
+
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Data de abertura</th>
+                        <th>Data de conclusão</th>
+                        <th>Aluno</th>
+                        <th>Equipamento</th>
+                        <th>Problema</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="chamado : ${historicoFinalizados}">
+
+                        <td th:text="${chamado.id}"></td>
+
+                        <td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy HH:mm')}"></td>
+
+                        <td th:text="${chamado.dataConclusao != null
+                            ? #temporals.format(chamado.dataConclusao, 'dd/MM/yyyy HH:mm')
+                            : 'Não registrada'}"></td>
+
+                        <td th:text="${chamado.aluno.nome}"></td>
+
+                        <td th:text="${chamado.equipamento}"></td>
+
+                        <td th:text="${chamado.tipoProblema}"></td>
+
+                        <td>
+                            <span class="status-chamado status-finalizado">
+                                Finalizado
+                            </span>
+                        </td>
+
+                        <td>
+                            <a class="link-visualizar"
+                               th:href="@{/tecnico/chamados/{id}(id=${chamado.id})}">
+                                Visualizar
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(historicoFinalizados)}">
+                        <td colspan="8" class="sem-chamados">
+                            Nenhum chamado finalizado até o momento.
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
     </section>
 
 </main>
+
+<script>
+    function alternarAba(aba) {
+
+        document.getElementById('conteudo-fila').hidden =
+            aba !== 'fila';
+
+        document.getElementById('conteudo-historico').hidden =
+            aba !== 'historico';
+
+        document.getElementById('aba-fila')
+            .classList.toggle('ativa', aba === 'fila');
+
+        document.getElementById('aba-historico')
+            .classList.toggle('ativa', aba === 'historico');
+    }
+</script>
 
 </body>
 </html>

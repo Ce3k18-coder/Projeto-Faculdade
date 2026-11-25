@@ -62,7 +62,17 @@ public class PainelTecnicoController {
                 .count();
 
         model.addAttribute("nomeTecnico", usuarioNome);
-        model.addAttribute("chamados", chamados);
+        List<Chamado> filaAtendimento = chamados.stream()
+                .filter(c -> "ABERTO".equals(c.getStatus())
+                        || "EM_ANDAMENTO".equals(c.getStatus()))
+                .toList();
+
+        List<Chamado> historicoFinalizados = chamados.stream()
+                .filter(c -> "FINALIZADO".equals(c.getStatus()))
+                .toList();
+
+        model.addAttribute("filaAtendimento", filaAtendimento);
+        model.addAttribute("historicoFinalizados", historicoFinalizados);
         model.addAttribute("totalChamados", chamados.size());
         model.addAttribute("chamadosAbertos", abertos);
         model.addAttribute("chamadosAndamento", andamento);
