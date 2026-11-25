@@ -102,6 +102,65 @@
     <section class="historico">
         <h2>Atendimento</h2>
 
+
+        <div th:if="${sucesso}" th:text="${sucesso}"
+             style="color: green; margin-bottom: 15px;">
+        </div>
+
+        <div th:if="${erro}" th:text="${erro}"
+             style="color: red; margin-bottom: 15px;">
+        </div>
+
+        <form th:if="${chamado.status == 'EM_ANDAMENTO'
+              and chamado.tecnico != null
+              and chamado.tecnico.id == session.usuarioId}"
+              th:action="@{/tecnico/chamados/{id}/tramitar(id=${chamado.id})}"
+              method="post">
+
+            <label for="descricao">
+                <strong>Descrição do atendimento:</strong>
+            </label>
+
+            <textarea id="descricao"
+                      name="descricao"
+                      rows="5"
+                      maxlength="2000"
+                      placeholder="Descreva o procedimento realizado..."
+                      required
+                      style="width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box;">
+    </textarea>
+
+            <button type="submit" class="botao-novo">
+                Registrar tramitação
+            </button>
+
+        </form>
+
+        <div style="margin-top: 25px;">
+
+            <h3>Histórico de tramitações</h3>
+
+            <p th:if="${#lists.isEmpty(tramitacoes)}">
+                Nenhuma tramitação registrada até o momento.
+            </p>
+
+            <div th:each="tramitacao : ${tramitacoes}"
+                 style="border-bottom: 1px solid #ddd; padding: 15px 0;">
+
+                <strong th:text="${tramitacao.tecnico.nome}"></strong>
+
+                <span th:text="${#temporals.format(tramitacao.dataTramitacao, 'dd/MM/yyyy HH:mm')}">
+        </span>
+
+                <p th:text="${tramitacao.descricao}"
+                   style="white-space: pre-wrap;">
+                </p>
+
+            </div>
+
+        </div>
+
+
         <form th:if="${chamado.status == 'ABERTO'}"
               th:action="@{/tecnico/chamados/{id}/assumir(id=${chamado.id})}"
               method="post">
