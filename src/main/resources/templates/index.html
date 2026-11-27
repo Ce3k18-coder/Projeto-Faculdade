@@ -60,6 +60,7 @@
                            id="email"
                            name="email"
                            placeholder="Digite seu e-mail"
+                           th:value="${emailLembrado}"
                            autocomplete="username"
                            required>
 
@@ -112,7 +113,8 @@
 
                     <input type="checkbox"
                            name="remember-me"
-                           id="remember-me">
+                           id="remember-me"
+                           th:checked="${lembrarMe}">
 
                     <span>Lembrar de mim</span>
 
